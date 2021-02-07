@@ -1,0 +1,28 @@
+call plug#begin('~/.vim/plugged')
+
+"Fugitive Vim Github Wrapper
+Plug 'tpope/vim-fugitive'
+Plug 'SirVer/ultisnips' 
+Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
+Plug 'morhetz/gruvbox'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'kien/rainbow_parentheses.vim'
+Plug 'dense-analysis/ale'
+
+Plug 'lervag/vimtex', {'for': 'tex'}
+"Plug 'matze/vim-tex-fold', {'for': 'tex'}
+Plug '907th/vim-auto-save'
+Plug 'godlygeek/tabular'
+
+Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': 'markdown'}
+Plug 'plasticboy/vim-markdown', {'for': 'markdown'}
+
+Plug 'mhinz/vim-startify'
+
+Plug 'ludovicchabant/vim-gutentags'
+
+Plug 'Yggdroot/LeaderF', {'do': './install.sh'}
+
+"Plug 'neoclide/coc.nvim', {'branch': 'release'}
+call plug#end()

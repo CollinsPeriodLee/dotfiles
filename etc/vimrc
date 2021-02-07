@@ -1,0 +1,231 @@
+set showcmd " Show (partial) command in status line.
+set showmatch " Show matching brackets.
+set ignorecase " Do case insensitive matching
+set smartcase " Do smart case matching
+set incsearch " Incremental search
+set autowrite " Automatically save before commands like :next and :make
+set hidden " Hide buffers when they are abandoned
+set mouse=a " Enable mouse usage (all modes)
+
+" Set compatibility to Vim only.
+set nocompatible
+
+" Helps force plug-ins to load correctly when it is turned back on below.
+filetype off
+
+" Turn on syntax highlighting.
+syntax on
+
+" For plug-ins to load correctly.
+filetype plugin indent on
+
+" Turn off modelines
+set modelines=0
+
+" Automatically wrap text that extends beyond the screen length.
+set wrap
+" Vim's auto indentation feature does not work properly with text copied from outside of Vim. Press the <F2> key to toggle paste mode on/off.
+nnoremap <F2> :set invpaste paste?<CR>
+imap <F2> <C-O>:set invpaste paste?<CR>
+set pastetoggle=<F2>
+
+" Uncomment below to set the max textwidth. Use a value corresponding to the width of your screen.
+" set textwidth=79
+set formatoptions=tcqrn1
+set tabstop=2
+set shiftwidth=2
+set softtabstop=2
+set expandtab
+set noshiftround
+
+" Display 5 lines above/below the cursor when scrolling with a mouse.
+set scrolloff=10
+" Fixes common backspace problems
+set backspace=indent,eol,start
+
+" Speed up scrolling in Vim
+set ttyfast
+
+" Status bar
+set laststatus=2
+
+" Display options
+set showmode
+set showcmd
+
+" Highlight matching pairs of brackets. Use the '%' character to jump between them.
+set matchpairs+=<:>
+
+" Display different types of white spaces.
+set list
+set listchars=tab:›\ ,trail:•,extends:#,nbsp:.
+
+" Show line numbers
+set number
+
+
+" Encoding
+set encoding=utf-8
+
+" Highlight matching search patterns
+set hlsearch
+" Enable incremental search
+set incsearch
+" Include matching uppercase words with lowercase search term
+set ignorecase
+" Include only uppercase words with uppercase search term
+set smartcase
+
+" Store info from no more than 100 files at a time, 9999 lines of text, 100kb of data. Useful for copying large amounts of data between files.
+set viminfo='100,<9999,s100
+
+" Map the <Space> key to toggle a selected fold opened/closed.
+nnoremap <silent> <Space> @=(foldlevel('.')?'za':"\<Space>")<CR>
+vnoremap <Space> zf
+
+
+" Automatically save and load folds
+autocmd BufWinLeave *.* mkview
+autocmd BufWinEnter *.* silent loadview"
+
+
+"   PlugIns
+
+" Call the .vimrc.plug file
+ if filereadable(expand("~/.vimrc.plug"))
+     source ~/.vimrc.plug
+ endif
+
+
+"Rainbow Parentheses setting
+let g:rbpt_colorpairs = [
+    \ ['brown',       'RoyalBlue3'],
+    \ ['Darkblue',    'SeaGreen3'],
+    \ ['darkgray',    'DarkOrchid3'],
+    \ ['darkgreen',   'firebrick3'],
+    \ ['darkcyan',    'RoyalBlue3'],
+    \ ['darkred',     'SeaGreen3'],
+    \ ['darkmagenta', 'DarkOrchid3'],
+    \ ['brown',       'firebrick3'],
+    \ ['gray',        'RoyalBlue3'],
+    \ ['black',       'SeaGreen3'],
+    \ ['darkmagenta', 'DarkOrchid3'],
+    \ ['Darkblue',    'firebrick3'],
+    \ ['darkgreen',   'RoyalBlue3'],
+    \ ['darkcyan',    'SeaGreen3'],
+    \ ['darkred',     'DarkOrchid3'],
+    \ ['red',         'firebrick3'],
+    \ ]
+
+
+" UI settings
+let g:rbpt_max = 16
+let g:rbpt_loadcmd_toggle = 0
+let g:gruvbox_guisp_fallback = "bg"
+" gruvbox setting
+set background=dark
+autocmd vimenter * colorscheme gruvbox
+
+
+" deactivate arrows
+nnoremap <Up> <nop>
+nnoremap <Down> <nop>
+nnoremap <Left> <nop>
+nnoremap <Right> <nop>
+inoremap <Up> <nop>
+inoremap <Down> <nop>
+inoremap <Left> <nop>
+inoremap <Right> <nop>
+
+
+" UltiSnips{{{
+let g:UltiSnipsExpandTrigger = '<tab>'
+let g:UltiSnipsJumpForwardTrigger = '<tab>'
+let g:UltiSnipsJumpBackwardTrigger = '<S-tab>'
+let g:UltiSnipsDirectories = ['UltiSnips']
+"}}}
+
+"ALE settings{{{
+
+let g:ale_linters_explicit = 1
+let g:ale_completion_delay = 500
+let g:ale_echo_delay = 20
+let g:ale_lint_delay = 500
+let g:ale_echo_msg_format = '[%linter%] %code: %%s'
+let g:ale_lint_on_text_changed = 'normal'
+let g:ale_lint_on_insert_leave = 1
+let g:airline#extensions#ale#enabled = 1
+
+"}}}
+
+""""""ctags settings""""""
+set tags=./.tags;,.tags
+" gutentags 搜索工程目录的标志，碰到这些文件/目录名就停止向上一级目录递归
+let g:gutentags_project_root = ['.root', '.svn', '.git', '.hg', '.project']
+
+" 所生成的数据文件的名称
+let g:gutentags_ctags_tagfile = '.tags'
+
+" 将自动生成的 tags 文件全部放入 ~/.cache/tags 目录中，避免污染工程目录
+let s:vim_tags = expand('~/.cache/tags')
+let g:gutentags_cache_dir = s:vim_tags
+
+let g:tex_flavor = 'latex'
+let g:python3_host_prog = '/home/lizuol/anaconda3/bin/python3'
+set conceallevel=2
+set clipboard+=unnamedplus
+set shiftwidth=4
+set expandtab
+set autoread
+" the mouse pointer is hidden when characters are typed
+set mousehide
+" Height of the command bar
+set cmdheight=1
+" change cursor
+if has("autocmd")
+  au InsertEnter * silent execute "!sed -i.bak -e 's/TERMINAL_CURSOR_SHAPE_BLOCK/TERMINAL_CURSOR_SHAPE_IBEAM/' ~/.config/xfce4/terminal/terminalrc"
+  au InsertLeave * silent execute "!sed -i.bak -e 's/TERMINAL_CURSOR_SHAPE_IBEAM/TERMINAL_CURSOR_SHAPE_BLOCK/' ~/.config/xfce4/terminal/terminalrc"
+  au VimLeave * silent execute "!sed -i.bak -e 's/TERMINAL_CURSOR_SHAPE_IBEAM/TERMINAL_CURSOR_SHAPE_BLOCK/' ~/.config/xfce4/terminal/terminalrc"
+endif
+
+" LeaderF setting
+
+let g:Lf_ShortcutF = '<c-p>'
+let g:Lf_ShortcutB = '<m-n>'
+noremap <c-n> :LeaderfMru<cr>
+noremap <m-p> :LeaderfFunction!<cr>
+noremap <m-n> :LeaderfBuffer<cr>
+noremap <m-m> :LeaderfTag<cr>
+let g:Lf_StlSeparator = { 'left': '', 'right': '', 'font': '' }
+let g:Lf_RootMarkers = ['.project', '.root', '.svn', '.git']
+let g:Lf_WorkingDirectoryMode = 'Ac'
+let g:Lf_WindowHeight = 0.30
+let g:Lf_CacheDirectory = expand('~/.vim/cache')
+let g:Lf_ShowRelativePath = 0
+let g:Lf_HideHelp = 1
+let g:Lf_StlColorscheme = 'powerline'
+let g:Lf_PreviewResult = {'Function':0, 'BufTag':0}
+let g:Lf_ShowDevIcons = 0
+
+"Airline setting
+let g:airline#extensions#wordcount#enabled = 0
+    "不显示文件编码
+let g:airline#parts#ffenc#skip_expected_string='utf-8[unix]'
+"    "取消显示warning部分
+let g:airline_section_warning = ''
+"    "取消显示section_b
+let g:airline_section_b = ''
+"    "section_y显示时间
+let g:airline_section_y = airline#section#create(['%{strftime("%D")}'])
+"    "section_z显示日期
+let g:airline_section_z = airline#section#create(['%{strftime("%H:%M")}'])
+
+
+
+" Spell check
+"setlocal spell spelllang=en_us
+"inoremap <C-l> <c-g>u<Esc>[s1z=']i<c-g>u
+
+
+
+
